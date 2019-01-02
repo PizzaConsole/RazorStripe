@@ -9,12 +9,36 @@
         "language": "C#"
     },
     "sourceName": "RazorStripe",
+    "primaryOutputs": [
+        {
+            "path": "RazorStripe.csproj"
+        }
+      ],
+    "sources": [
+        {
+            "exclude":[
+                ".git/**", 
+                ".vs/**", 
+                ".template.config/**",
+                "**/[Bb]in/**",
+                "**/[Oo]bj/**",
+                "**/*.gitignore",
+                "**/*.csproj.user"
+            ] 
+        }
+    ],
     "symbols":{
         "copyrightName": {
             "type": "parameter",
             "defaultValue": "Company",
             "replaces":"Dragon Mastery LLC"
-        }
+        },
+        "skipRestore": {
+            "type": "parameter",
+            "datatype": "bool",
+            "description": "If specified, skips the automatic restore of the project on create.",
+            "defaultValue": "false"
+          }
     },
     "postActions": [
         {
