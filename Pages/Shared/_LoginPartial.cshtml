@@ -1,0 +1,40 @@
+@using Microsoft.AspNetCore.Identity
+@using RazorStripe.Data.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+
+    <div id="myDivDrops" class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle bg-dark" type="button" id="myOffSet" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            @UserManager.GetUserName(User)
+        </button>
+        <div id="myDivDrop" class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="myOffSet">
+            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post" id="logoutForm" class="navbar-right bg-dark">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index" class="btn nav-link text-light bg-dark" title="Manage">Profile Settings</a>
+                    </li>
+                    <li>
+                        <button type="submit" class="btn nav-link text-light bg-dark">Log out</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn nav-link text-light bg-dark">Register</a>
+        </li>
+        <li class="nav-item">
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn nav-link text-light bg-dark">Login</a>
+        </li>
+    </ul>
+
+}

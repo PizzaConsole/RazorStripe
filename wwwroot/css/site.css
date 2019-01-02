@@ -1,0 +1,253 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+/* Remove margins and padding from the list */
+.my-list {
+    margin: 0;
+    padding: 0;
+}
+
+    /* Style the list items */
+    .my-list li {
+        cursor: pointer;
+        position: relative;
+        padding: 12px 8px 12px 40px;
+        list-style-type: none;
+        background: #eee;
+        font-size: 18px;
+        transition: 0.2s;
+        /* make the list items unselectable */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+        /* Set all odd list items to a different color (zebra-stripes) */
+        .my-list li:nth-child(odd) {
+            background: #f9f9f9;
+        }
+
+        /* Darker background-color on hover */
+        .my-list li:hover {
+            background: #ddd;
+        }
+
+        /* When clicked on, add a background color and strike out text */
+        .my-list li.checked {
+            background: #888;
+            color: #fff;
+            text-decoration: line-through;
+        }
+
+            /* Add a "checked" mark when clicked on */
+            .my-list li.checked::before {
+                content: '';
+                position: absolute;
+                border-color: #fff;
+                border-style: solid;
+                border-width: 0 2px 2px 0;
+                top: 10px;
+                left: 16px;
+                transform: rotate(45deg);
+                height: 15px;
+                width: 7px;
+            }
+
+span {
+    vertical-align: text-top;
+}
+
+.alert-dismissible .close {
+    padding: .3rem 1.25rem;
+}
+/* Style the close button */
+.close:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Style the header */
+.header {
+    background-color: #f44336;
+    padding: 30px 40px;
+    color: white;
+    text-align: center;
+}
+
+    /* Clear floats after the header */
+    .header:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+/* Style the input */
+
+/* Style the "Add" button */
+.add-btn {
+    padding: 10px;
+    width: 25%;
+    background: #d9d9d9;
+    color: #555;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 0;
+}
+
+    .add-btn:hover {
+        background-color: #bbb;
+    }
+
+.text-center {
+    text-align: center;
+}
+
+.healthbar {
+    width: 80%;
+    height: 40px;
+    background-color: #a51417;
+    margin: auto;
+    transition: width 500ms;
+}
+
+.controls, .log {
+    margin-top: 30px;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 3px 6px #ccc;
+}
+
+.turn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.log ul {
+    list-style: none;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+    .log ul li {
+        margin: 5px;
+    }
+
+    .log ul .player-turn {
+        color: blue;
+        background-color: #e4e8ff;
+    }
+
+    .log ul .monster-turn {
+        color: red;
+        background-color: #ffc0c1;
+    }
+
+button {
+    margin: 5px;
+}
+
+.start-game {
+    background-color: #aaffb0;
+}
+
+    .start-game:hover {
+        background-color: #76ff7e;
+    }
+
+.basic-1 {
+    background-color: #ff7367;
+}
+
+    .basic-1:hover {
+        background-color: #ff3f43;
+    }
+
+.basic-2 {
+    background-color: #ff7367;
+}
+
+    .basic-2:hover {
+        background-color: #ff3f43;
+    }
+
+.basic-3 {
+    background-color: #ff7367;
+}
+
+    .basic-3:hover {
+        background-color: #ff3f43;
+    }
+
+.smash-1 {
+    background-color: #aaffb0;
+}
+
+    .smash-1:hover {
+        background-color: #76ff7e;
+    }
+
+.smash-2 {
+    background-color: #aaffb0;
+}
+
+    .smash-2:hover {
+        background-color: #76ff7e;
+    }
+
+.special-attack {
+    background-color: #ffaf4f;
+}
+
+    .special-attack:hover {
+        background-color: #ff9a2b;
+    }
+
+.give-up {
+    background-color: #ffffff;
+}
+
+    .give-up:hover {
+        background-color: #c7c7c7;
+    }

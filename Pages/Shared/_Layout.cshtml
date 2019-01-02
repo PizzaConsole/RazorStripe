@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RazorStripe</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/jqueryui/jquery-ui.css" />
+        <link rel="stylesheet" href="~/lib/jquery-timepicker/jquery.timepicker.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+        <script defer src="~/lib/fontawesome/js/all.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/smoothness/jquery-ui.css"
+              asp-fallback-href="~/lib/jqueryui/jquery-ui.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/all.css" asp-append-version="true" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css"
+              asp-fallback-href="~/lib/jquery-timepicker/jquery.timepicker.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        <script defer src="https://use.fontawesome.com/releases/v5.6.1/js/all.js"
+                asp-fallback-src="~/lib/fontawesome/js/all.js"
+                integrity="sha384-R5JkiUweZpJjELPWqttAYmYM1P3SNEJRM6ecTQF05pFFtxmCO+Y1CiUhvuDzgSVZ"
+                crossorigin="anonymous">
+        </script>
+    </environment>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-xl navbar-dark bg-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a asp-page="/Index" class="navbar-brand">RazorStripe</a>
+            </div>
+            <div class="nav navbar-nav">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarToggler">
+                <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a asp-area="Identity" asp-page="/Account/Manage/Subscriptions" class="btn nav-link text-light bg-dark">Subscriptions</a>
+                    </li>
+                </ul>
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </form>
+
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+
+    <partial name="_CookieConsentPartial" />
+    <br />
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2012-@DateTime.Today.Year - RazorStripe</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/popper.js/umd/popper.min.js"></script>
+        <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/jqueryui/jquery-ui.js"></script>
+        <script src="~/lib/jquery-timepicker/jquery.timepicker.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js"
+                asp-fallback-src="~/lib/jqueryui/jquery-ui.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.js"
+                asp-fallback-src="~/lib/jquery-timepicker/jquery.timepicker.min.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+                asp-fallback-src="~/lib/popper.js/popper.min.js">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/4.1.1/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"
+                asp-fallback-src="~/lib/summernote/summernote-bs4.min.js">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

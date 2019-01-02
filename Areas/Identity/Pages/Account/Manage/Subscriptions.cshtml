@@ -1,0 +1,116 @@
+﻿@page
+@model SubscriptionsModel
+@{
+    ViewData["Title"] = "Subscriptions";
+}
+
+<h2>Subcriptions</h2>
+@await Html.PartialAsync("_StatusMessage", Model.StatusMessage)
+<div class="col-sm-12">
+    @{ if (Model.StripeCustomerId != null)
+        {
+            if (Model.Subscriptions.Any())
+            {
+                foreach (var subscription in Model.Subscriptions)
+                {
+                    <div class="alert alert-info">
+                        <strong>Status: @subscription.Status</strong> <p>@subscription.Plan.Nickname : @subscription.Plan.Amount @subscription.Plan.Currency : @subscription.Start - @subscription.CurrentPeriodEnd</p>
+                    </div>
+                }
+
+            }
+
+        }
+        else
+        {
+            <div class="alert alert-warning alert-dismissible" role="alert">
+                <strong>Hey!</strong>
+                It looks like you don't have any active subcriptions.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+    }
+</div>
+<div class="col-md-4">
+    <form method="post" class="payment-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="SubscriptionProducts" class="control-label"></label>
+            <select asp-for="Input.ProductId" class="form-control subscription-products" asp-items="Model.SubscriptionProducts"></select>
+        </div>
+        <div class="form-group">
+            <label asp-for="SubscriptionPlans" class="control-label"></label>
+            <select asp-for="Input.PlanId" class="form-control subscription-plans"></select>
+        </div>
+        <div class="form-group ">
+            <label asp-for="PlanPrice" class="control-label"></label>
+            <span class="form-control plan-price"></span>
+        </div>
+        <!--TODO: Remove -->
+        @*
+            <div class="form-row">
+                <label for="card-element">
+                    Credit or debit card
+                </label>
+                <div id="card-element">
+                    <!-- a Stripe Element will be inserted here. -->
+                </div>
+
+                <!-- Used to display form errors -->
+                <div id="card-errors" role="alert"></div>
+            </div>
+            <div class="border border-warning">
+                    <div style="margin:5px">
+
+                        <div class="row">
+                            <div class="form-group col-9">
+                                <label class="control-label">Card Number</label>
+                                <input type="text" class="form-control" data-stripe="number" />
+                            </div>
+                            <div class="form-group col-3">
+                                <label class="control-label">CVC</label>
+                                <input type="text" class="form-control" data-stripe="cvc" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Expiration (MM/YY)</label>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" data-stripe="exp-month" />
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control" data-stripe="exp-year" />
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary stripe-purchase">Confirm</button>
+                </div>
+                <div id="card-errors" role="alert"></div>*@
+        <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="@Model.StripeKey"
+                data-email="@Model.UserEmail"
+                data-name="Dragon Mastery LLC"
+                data-description="RazorStripe"
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="auto">
+        </script>
+    </form>
+</div>
+
+@section Scripts {
+
+    <script src="~/js/Subscriptions.js"></script>
+    @*<script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+        <script type="text/javascript">
+            var stripe = Stripe('pk_test_c9qOJUMWGmBxk9uWouD00gBo');
+            var elements = stripe.elements();
+
+            var card = elements.create('card');
+
+            // Add an instance of the card UI component into the `card-element` <div>
+            card.mount('#card-element');
+        </script>*@
+}
