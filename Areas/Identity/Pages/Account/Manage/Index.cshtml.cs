@@ -42,8 +42,6 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
             _emailSender = emailSender;
         }
 
-        public string Username { get; set; }
-
         public bool IsEmailConfirmed { get; set; }
 
         [TempData]
@@ -54,6 +52,10 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
+            [Required]
+            [Display(Name = "Username")]
+            public string Username { get; set; }
+
             [Required]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
@@ -69,7 +71,6 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
-
         }
 
         public async Task<IActionResult> OnGetAsync()
@@ -84,10 +85,9 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
 
-            Username = userName;
-
             Input = new InputModel
             {
+                Username = user.UserName,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = email,
@@ -134,11 +134,26 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            ApplicationUser userInDb = await _db.Users.Where(u => u.Email.ToLower().Equals(Input.Email.ToLower())).FirstOrDefaultAsync();
 
-            ApplicationUser userInDb = _db.Users.Where(u => u.Email.ToLower().Equals(Input.Email.ToLower())).FirstOrDefault();
-            userInDb.FirstName = Input.FirstName;
-            userInDb.LastName = Input.LastName;
+            var firstName = userInDb.FirstName;
+            if (Input.FirstName != firstName)
+            {
+                userInDb.FirstName = Input.FirstName;
+            }
 
+            var lastName = userInDb.LastName;
+            if (Input.LastName != lastName)
+            {
+                userInDb.LastName = Input.LastName;
+            }
+
+            var username = userInDb.UserName;
+            if (Input.Username != username)
+            {
+                var userId = await _userManager.GetUserIdAsync(user);
+                throw new InvalidOperationException($"Unable to change username for user with ID '{userId}'.");
+            }
 
             await _db.SaveChangesAsync();
 
@@ -176,6 +191,5 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();
         }
-
     }
 }
