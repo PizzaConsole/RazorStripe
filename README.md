@@ -14,7 +14,7 @@ There is also a .template.config folder so you can use dotnet new -i to create y
 
 ## Contributions
 Contributions are welcome! Follow the community and contribute [HERE](https://discord.gg/6SAfBMc)
-Please note that this project is released with a [Contributor Code of Conduct](CODE-OF-CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
 Please report unacceptable behavior to admin@dragonmastery.com.
 ## License
 
