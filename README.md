@@ -12,9 +12,10 @@ RazorStripe is an ASP.NET Core 2.2 Template that combines Razor Pages with Strip
 ## Custom Templates
 There is also a .template.config folder so you can use dotnet new -i to create your own templates from this. More information [HERE](https://docs.microsoft.com/en-us/dotnet/core/tools/custom-templates)
 
-## Community
+## Contributions
 Contributions are welcome! Follow the community and contribute [HERE](https://discord.gg/6SAfBMc)
-
+Please note that this project is released with a [Contributor Code of Conduct](CODE-OF-CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please report unacceptable behavior to admin@dragonmastery.com.
 ## License
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
