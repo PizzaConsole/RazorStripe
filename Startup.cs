@@ -20,17 +20,23 @@ using Microsoft.AspNetCore.StaticFiles;
 using Stripe;
 using RazorStripe.Data.Models;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.Extensions.Logging;
 
 namespace RazorStripe
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private readonly IHostingEnvironment _env;
+        private readonly IConfiguration _config;
+        private readonly ILoggerFactory _loggerFactory;
 
-        public IConfiguration Configuration { get; }
+        public Startup(IHostingEnvironment env, IConfiguration config,
+            ILoggerFactory loggerFactory)
+        {
+            _env = env;
+            _config = config;
+            _loggerFactory = loggerFactory;
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -42,13 +48,21 @@ namespace RazorStripe
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            if (_env.IsDevelopment())
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(
+                        _config.GetConnectionString("DevConnection")));
+            }
+            else
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(
+                        _config.GetConnectionString("ReleaseConnection")));
+            }
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                //.AddDefaultUI(UIFramework.Bootstrap4)
                 .AddDefaultTokenProviders();
 
             // Configure Identity
@@ -85,7 +99,7 @@ namespace RazorStripe
                 options.SlidingExpiration = true;
             });
 
-            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+            services.Configure<StripeSettings>(_config.GetSection("Stripe"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
@@ -134,22 +148,23 @@ namespace RazorStripe
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
 
-            StripeConfiguration.SetApiKey(Configuration.GetSection("Stripe")["SecretKey"]);
+            StripeConfiguration.SetApiKey(_config.GetSection("Stripe")["SecretKey"]);
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
