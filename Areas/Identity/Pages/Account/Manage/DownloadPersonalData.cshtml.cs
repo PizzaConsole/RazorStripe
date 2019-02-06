@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RazorStripe.Data;
-using RazorStripe.Data.Models;
+using RazorStripe.Models;
 
 namespace RazorStripe.Areas.Identity.Pages.Account.Manage
 {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RazorStripe.Data.Models
+namespace RazorStripe.Models
 {
     public class UserSubscription
     {

@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using RazorStripe.Data;
-using RazorStripe.Data.Models;
+using RazorStripe.Models;
 
 namespace RazorStripe.Areas.Identity.Pages.Account
 {
@@ -104,9 +104,7 @@ namespace RazorStripe.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-
                     await _db.SaveChangesAsync();
-
 
                     _logger.LogInformation("User created a new account with password.");
 

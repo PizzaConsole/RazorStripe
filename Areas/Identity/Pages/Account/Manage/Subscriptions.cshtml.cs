@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RazorStripe.Data;
-using RazorStripe.Data.Models;
+using RazorStripe.Models;
 using RazorStripe.Extensions;
 using RazorStripe.Services;
 using Stripe;

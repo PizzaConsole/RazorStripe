@@ -4,7 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RazorStripe.Data.Models;
+using RazorStripe.Models;
 
 namespace RazorStripe.Data
 {
@@ -15,9 +15,18 @@ namespace RazorStripe.Data
         {
         }
 
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<UserSubscription> UserSubscriptions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Contact>(b =>
+            {
+                b.Property(e => e.Status)
+                    .HasConversion<string>();
+            });
 
             // Customize the ASP.NET Identity model and override the defaults if needed. For example,
             // you can rename the ASP.NET Identity table names and more. Add your customizations

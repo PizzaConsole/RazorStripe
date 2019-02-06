@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorStripe.Data;
-using RazorStripe.Data.Models;
+using RazorStripe.Models;
 
 namespace RazorStripe.Areas.Identity.Pages.Account
 {
@@ -46,7 +46,7 @@ namespace RazorStripe.Areas.Identity.Pages.Account
                     return RedirectToPage("./ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please 
+                // For more information on how to enable account confirmation and password reset please
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 var callbackUrl = Url.Page(

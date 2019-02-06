@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using RazorStripe.Data;
-using RazorStripe.Data.Models;
+using RazorStripe.Models;
 
 namespace RazorStripe.Areas.Identity.Pages.Account.Manage
 {

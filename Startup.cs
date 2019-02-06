@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.StaticFiles;
 using Stripe;
-using RazorStripe.Data.Models;
+using RazorStripe.Models;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.Extensions.Logging;
 
