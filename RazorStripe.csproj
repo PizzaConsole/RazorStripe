@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-RazorStripe-66F3C237-5BC7-493C-B78E-D8A31F0EDFE1</UserSecretsId>
-    <SignAssembly>false</SignAssembly>
-    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <Authors>PoisnFang</Authors>
+    <Company>Dragon Mastery LLC</Company>
+    <Description>Razor Pages with Stripe</Description>
+    <Copyright>Dragon Mastery LLC</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -46,9 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Shared\Components\" />
-    <Folder Include="Services\Handlers\" />
-    <Folder Include="Services\Requirements\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 </Project>
