@@ -328,3 +328,11 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# libman folders
+**/wwwroot/lib/twitter-bootstrap/
+**/wwwroot/lib/popper.js/
+**/wwwroot/lib/jquery/
+**/wwwroot/lib/jqueryui/
+**/wwwroot/lib/jquery-timepicker/
+

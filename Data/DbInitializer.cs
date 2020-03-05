@@ -8,7 +8,7 @@ using RazorStripe.Models;
 
 namespace RazorStripe.Data
 {
-    public class DbInitializer
+    public static class DbInitializer
     {
         public static void Initialize(ApplicationDbContext context)
         {

@@ -23,7 +23,12 @@
                 "**/[Bb]in/**",
                 "**/[Oo]bj/**",
                 "**/*.gitignore",
-                "**/*.csproj.user"
+                "**/*.csproj.user",
+                "**/wwwroot/lib/twitter-bootstrap/**",
+                "**/wwwroot/lib/popper.js/**",
+                "**/wwwroot/lib/jquery/**",
+                "**/wwwroot/lib/jqueryui/",
+                "**/wwwroot/lib/jquery-timepicker/"
             ] 
         }
     ],

@@ -21,21 +21,19 @@ using Stripe;
 using RazorStripe.Models;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Hosting;
 
 namespace RazorStripe
 {
     public class Startup
     {
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _config;
-        private readonly ILoggerFactory _loggerFactory;
 
-        public Startup(IHostingEnvironment env, IConfiguration config,
-            ILoggerFactory loggerFactory)
+        public Startup(IWebHostEnvironment env, IConfiguration config)
         {
             _env = env;
             _config = config;
-            _loggerFactory = loggerFactory;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -43,7 +41,8 @@ namespace RazorStripe
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                // This lambda determines whether user consent for non-essential cookies is needed
+                // for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -101,16 +100,10 @@ namespace RazorStripe
 
             services.Configure<StripeSettings>(_config.GetSection("Stripe"));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddRazorPagesOptions(options =>
+            services.AddRazorPages().AddRazorPagesOptions(options =>
             {
                 //Logged in user pages
                 options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
-                options.Conventions.AuthorizeFolder("/ClientProfiles");
-                options.Conventions.AuthorizeFolder("/ClientLocations");
-                options.Conventions.AuthorizeFolder("/ClientContacts");
-                options.Conventions.AuthorizeFolder("/SalesManager");
-                options.Conventions.AuthorizeFolder("/MasterAgentContacts");
 
                 //customer pages
 
@@ -138,6 +131,7 @@ namespace RazorStripe
             // reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
 
             services.AddSingleton<IEmailSender, EmailSender>();
+
             //services.Configure<AuthMessageSenderOptions>(Configuration);
 
             services.AddSession(options =>
@@ -148,13 +142,12 @@ namespace RazorStripe
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                app.UseBrowserLink();
             }
             else
             {
@@ -163,18 +156,20 @@ namespace RazorStripe
                 app.UseHttpsRedirection();
             }
 
-            StripeConfiguration.SetApiKey(_config.GetSection("Stripe")["SecretKey"]);
+            StripeConfiguration.ApiKey = _config.GetSection("Stripe")["SecretKey"];
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseSession();
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endPoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{acion=Index}/{id?}");
+                endPoints.MapRazorPages();
             });
 
             // Set up custom content types -associating file extension to MIME type

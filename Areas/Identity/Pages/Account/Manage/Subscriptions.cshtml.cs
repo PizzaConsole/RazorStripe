@@ -1,24 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using RazorStripe.Data;
 using RazorStripe.Models;
-using RazorStripe.Extensions;
 using RazorStripe.Services;
 using Stripe;
-using Stripe.Infrastructure;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RazorStripe.Areas.Identity.Pages.Account.Manage
 {
@@ -121,7 +114,7 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
                 var subcriptionService = new SubscriptionService();
                 IEnumerable<Subscription> response = subcriptionService.List(new SubscriptionListOptions
                 {
-                    CustomerId = StripeCustomerId
+                    Customer = StripeCustomerId
                 });
                 Subscriptions = response.ToList();
             }
@@ -166,8 +159,7 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
                 var customer = customers.Create(new CustomerCreateOptions
                 {
                     Email = UserEmail,
-                    SourceToken = stripeToken,
-                    PlanId = planId,
+                    Plan = planId,
                     Description = UserEmail + " " + "[" + user.Id + "]"
                 });
 
@@ -177,16 +169,16 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
             else
             {
                 var subcriptionService = new SubscriptionService();
-                var subscriptionItems = new List<SubscriptionItemOption>
+                var subscriptionItems = new List<SubscriptionItemOptions>
                 {
-                    new SubscriptionItemOption
+                    new SubscriptionItemOptions
                     {
-                        PlanId = planId
+                        Plan = planId
                     }
                 };
                 var stripeSubscription = subcriptionService.Create(new SubscriptionCreateOptions
                 {
-                    CustomerId = StripeCustomerId,
+                    Customer = StripeCustomerId,
                     Items = subscriptionItems
                 });
             }
@@ -199,7 +191,7 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
                     Amount = planAmount,
                     Currency = "usd",
                     Description = "RazorStripe for" + " " + UserEmail,
-                    CustomerId = StripeCustomerId,
+                    Customer = StripeCustomerId,
                 };
                 var chargeService = new ChargeService();
                 charge = chargeService.Create(chargeOptions);
@@ -218,7 +210,7 @@ namespace RazorStripe.Areas.Identity.Pages.Account.Manage
             var service = new PlanService();
             var serviceOptions = new PlanListOptions
             {
-                ProductId = productId
+                Product = productId
             };
             StripeList<Plan> plans = service.List(serviceOptions);
 
